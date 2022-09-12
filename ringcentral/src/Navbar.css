@@ -1,0 +1,12 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: cadetblue;
+    height: 8vh;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
