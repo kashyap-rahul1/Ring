@@ -15,21 +15,34 @@ const Navbar = () => {
     localStorage.removeItem("flag");
     navigate("/");
   };
+
   return (
     <>
       <div className="navbar">
-        <div>RingCentral</div>
-        <div>Time Track</div>
         <div>
-          <Button onClick={handleModal}>Profile</Button>
+          <b>RingCentral</b>
+        </div>
+        <div>
+          <b>Time Track</b>
+        </div>
+        <div>
+          {localStorage.getItem("flag") ? (
+            <Button onClick={handleModal}>Profile</Button>
+          ) : (
+            ""
+          )}
+
           <Modal show={show}>
             <Modal.Header>User profile</Modal.Header>
             <Modal.Body>
-             
-              <Button onClick={()=>{
-                handleModal();
-                logout();
-              }}>Logout</Button>
+              <Button
+                onClick={() => {
+                  handleModal();
+                  logout();
+                }}
+              >
+                Logout
+              </Button>
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={handleModal}>Save</Button>
