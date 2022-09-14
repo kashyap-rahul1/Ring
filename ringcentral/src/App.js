@@ -3,6 +3,7 @@ import Login from "./Login";
 import Entries from "./Entries";
 import { Routes, Route } from "react-router-dom";
 import NewEntry from "./NewEntry";
+import UpdateEntry from "./UpdateEntry";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/entries" element={<Entries />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="entries/newentry" element={<NewEntry />}></Route>
+        <Route path="entries/update/:id" element={<UpdateEntry />}></Route>
       </Routes>
     </div>
   );

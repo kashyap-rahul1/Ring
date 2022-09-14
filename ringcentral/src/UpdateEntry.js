@@ -1,10 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-const NewEntry = () => {
-  const navigate = useNavigate();
+import { useParams } from "react-router-dom";
+
+const UpdateEntry = () => {
   const [data, setData] = useState({
-    id: Date.now(),
+    id: "",
     timeInSeconds: "",
     ticketNumber: "",
     dateOfEntry: "",
@@ -12,30 +13,39 @@ const NewEntry = () => {
     accountId: "",
     customer: "",
   });
+  const navigate = useNavigate();
+  let { id } = useParams();
+  console.log(id);
+
+  let res = localStorage.getItem("arr");
+  let arr = JSON.parse(res);
+
+  const myData = arr.filter((item) => {
+    console.log(item.id, id);
+    return item.id === +id;
+  });
+
+  useEffect(() => {
+    setData(...myData);
+  }, []);
+
+  console.log(data, "line 31");
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const addData = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
+    let alldata = arr.filter((item) => {
+      return item.id !== id;
+    });
 
-    const res = localStorage.getItem("arr");
-    const older = JSON.parse(res);
-    console.log(data);
-    const d = new Date().toLocaleTimeString();
-    console.log(d);
-    if (
-      data.id &&
-      data.timeInSeconds &&
-      data.ticketNumber &&
-      data.accountId &&
-      data.customer
-    ) {
-      localStorage.setItem("arr", JSON.stringify([...older, { ...data }]));
-      navigate("/entries");
-    } else {
-      alert("Please enter detail");
-    }
+    // localStorage.setItem("arr", JSON.stringify(...alldata, { ...data }));
+    // const arr = localStorage.getItem("arr");
+    // const res = JSON.parse(arr);
+    console.log(alldata);
+    // navigate("/entries");
   };
 
   return (
@@ -113,8 +123,12 @@ const NewEntry = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" onClick={addData}>
-            Add
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleUpdate}
+          >
+            Update
           </button>
         </form>
       </div>
@@ -122,4 +136,4 @@ const NewEntry = () => {
   );
 };
 
-export default NewEntry;
+export default UpdateEntry;
