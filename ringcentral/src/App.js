@@ -4,6 +4,7 @@ import Entries from "./Entries";
 import { Routes, Route } from "react-router-dom";
 import NewEntry from "./NewEntry";
 import UpdateEntry from "./UpdateEntry";
+import SidePanel from "./SidePanel";
 
 function App() {
   return (

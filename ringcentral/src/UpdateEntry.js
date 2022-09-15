@@ -13,6 +13,7 @@ const UpdateEntry = () => {
     accountId: "",
     customer: "",
   });
+  const [allData, setAllData] = useState([]);
   const navigate = useNavigate();
   let { id } = useParams();
   console.log(id);
@@ -38,14 +39,16 @@ const UpdateEntry = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     let alldata = arr.filter((item) => {
-      return item.id !== id;
+      return item.id !== +id;
     });
+    console.log(alldata, "all data");
+    setAllData(alldata);
 
-    // localStorage.setItem("arr", JSON.stringify(...alldata, { ...data }));
-    // const arr = localStorage.getItem("arr");
-    // const res = JSON.parse(arr);
-    console.log(alldata);
-    // navigate("/entries");
+    const b = [...alldata, data];
+    localStorage.setItem("arr", JSON.stringify(b));
+    console.log(b, "combine data");
+
+    navigate("/entries");
   };
 
   return (

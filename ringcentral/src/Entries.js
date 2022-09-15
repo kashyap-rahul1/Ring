@@ -150,65 +150,72 @@ const Entries = () => {
 
   return (
     <>
-      <NavLink to="newentry" className="m-2">
-        <button type="button" className="btn btn-outline-primary">
-          <AddIcon />
-          <b>Add Entry</b>
+      <div className="mt-3" style={{ paddingLeft: "250px" }}>
+        <NavLink to="newentry" className="m-2">
+          <button type="button" className="btn btn-outline-primary">
+            <AddIcon />
+            <b>Add Entry</b>
+          </button>
+        </NavLink>
+        <button type="button" className="btn btn-outline-primary ml-2">
+          <DeleteIcon />
+          <b>Delete</b>
         </button>
-      </NavLink>
-      <button type="button" className="btn btn-outline-primary ml-2">
-        <DeleteIcon />
-        <b>Delete</b>
-      </button>
+      </div>
 
-      <table className="table table-dark ">
-        <thead>
-          <tr>
-            <th scope="col">
-              <input type="checkbox" />
-            </th>
-            <th scope="col">Support Type</th>
-            <th scope="col">Customer UID</th>
-            <th scope="col">Ticket Id</th>
-            <th scope="col">Duration</th>
-            <th scope="col">Date</th>
-            <th scope="col">Role</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {myData.map((item, i) => {
-            return (
-              <tr key={i}>
-                <th scope="row">
-                  <input type="checkbox" />
-                </th>
-                <td>{item.customer}</td>
-                <td>{item.accountId}</td>
-                <td>{item.ticketNumber}</td>
-                <td>{item.timeInSeconds}</td>
-                <td>{item.dateOfEntry}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>
-                  <DeleteIcon
-                    onClick={() => {
-                      handleDelete(item.id);
-                    }}
-                  >
-                    delete
-                  </DeleteIcon>
-                </td>
-                <td>
-                  <NavLink to={`update/${item.id}`}>
-                    <EditIcon />
-                  </NavLink>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div
+        className="container mt-3"
+        style={{ width: "70vw", minheight: "30vw" }}
+      >
+        <table className="table table-dark ">
+          <thead>
+            <tr>
+              <th scope="col">
+                <input type="checkbox" />
+              </th>
+              <th scope="col">Support Type</th>
+              <th scope="col">Customer UID</th>
+              <th scope="col">Ticket Id</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Date</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {myData.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <th scope="row">
+                    <input type="checkbox" />
+                  </th>
+                  <td>{item.customer}</td>
+                  <td>{item.accountId}</td>
+                  <td>{item.ticketNumber}</td>
+                  <td>{item.timeInSeconds}</td>
+                  <td>{item.dateOfEntry}</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>
+                    <DeleteIcon
+                      onClick={() => {
+                        handleDelete(item.id);
+                      }}
+                    >
+                      delete
+                    </DeleteIcon>
+                  </td>
+                  <td>
+                    <NavLink to={`update/${item.id}`}>
+                      <EditIcon />
+                    </NavLink>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
