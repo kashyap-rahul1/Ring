@@ -1,14 +1,13 @@
 import * as React from "react";
-// import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 const Entries = () => {
   let [myData, setMyData] = useState([]);
-
+  const [selectAll, setSelectAll] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
   // const arr = [
   //   {
   //     id: 309,
@@ -148,6 +147,38 @@ const Entries = () => {
     }
   };
 
+  const handleChecbox = (id) => {
+    console.log(id);
+    if (selectedRows.includes(id)) {
+      console.log("already present");
+    } else {
+      selectedRows.push(id);
+    }
+    // setSelectedRows(selectedRows);
+    console.log(selectedRows, "array");
+  };
+
+  const multipleDelete = () => {
+    console.log("multiple deleting...");
+    console.log(selectedRows.length);
+    const res = localStorage.getItem("arr");
+    const result = JSON.parse(res);
+    const filteredItems = result.filter((item) => {
+      return !selectedRows.includes(item.id);
+    });
+    console.log(filteredItems, "filtered");
+    setMyData(filteredItems);
+    localStorage.setItem("arr", JSON.stringify(filteredItems));
+  };
+
+  const handleSelectAll = (e) => {
+    console.log("Select all.......", e.target.checked);
+    const { checked } = e.target;
+    setSelectAll(checked);
+    setSelectedRows(checked ? myData.map((item) => item.id) : []);
+    console.log(selectedRows);
+  };
+  console.log(selectedRows);
   return (
     <>
       <div className="mt-3" style={{ paddingLeft: "250px" }}>
@@ -157,7 +188,11 @@ const Entries = () => {
             <b>Add Entry</b>
           </button>
         </NavLink>
-        <button type="button" className="btn btn-outline-primary ml-2">
+        <button
+          type="button"
+          className="btn btn-outline-primary ml-2"
+          onClick={multipleDelete}
+        >
           <DeleteIcon />
           <b>Delete</b>
         </button>
@@ -171,7 +206,11 @@ const Entries = () => {
           <thead>
             <tr>
               <th scope="col">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={selectAll}
+                  onClick={handleSelectAll}
+                />
               </th>
               <th scope="col">Support Type</th>
               <th scope="col">Customer UID</th>
@@ -187,7 +226,14 @@ const Entries = () => {
               return (
                 <tr key={i}>
                   <th scope="row">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      className="selectAll"
+                      checked={selectedRows.includes(item.id)}
+                      onClick={() => {
+                        handleChecbox(item.id);
+                      }}
+                    />
                   </th>
                   <td>{item.customer}</td>
                   <td>{item.accountId}</td>

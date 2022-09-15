@@ -10,3 +10,7 @@ const obj = {
 
 // console.log(...arr);
 console.log([...arr, { ...obj }]);
+const res = arr.filter((item) => {
+  return item.fname === "rahul";
+});
+console.log(res);

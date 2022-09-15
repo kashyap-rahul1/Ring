@@ -29,7 +29,8 @@ const NewEntry = () => {
       data.timeInSeconds &&
       data.ticketNumber &&
       data.accountId &&
-      data.customer
+      data.customer &&
+      data.dateOfEntry
     ) {
       localStorage.setItem("arr", JSON.stringify([...older, { ...data }]));
       navigate("/entries");
